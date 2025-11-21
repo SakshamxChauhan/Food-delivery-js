@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizza Home - Order Now</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f8f9fa;
+      color: #2b2b2b;
+    }
+    /* Header */
+    .header {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #fa5a2a;
+    }
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #555;
+      cursor: pointer;
+    }
+    .user-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .user-email {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .logout-btn {
+      background: #fa5a2a;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .logout-btn:hover {
+      background: #dd4413;
+    }
+    .nav-bar {
+      background: #fa5a2a;
+      padding: 0.7rem 1.5rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    /* Banner */
+    .banner {
+      background: linear-gradient(135deg, #ffa751 0%, #ffe259 100%);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: #2b2b2b;
+    }
+    .banner h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .banner p {
+      font-size: 1.1rem;
+    }
+    /* Menu Categories */
+    .menu-categories {
+      padding: 1.5rem 1.5rem 0.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .categories {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+    .category-card {
+      min-width: 120px;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
+    .category-card:hover {
+      transform: translateY(-4px);
+    }
+    .category-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .category-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    /* Products Section */
+    .products-section {
+      padding: 1.5rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #2b2b2b;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #f0f0f0;
+    }
+    .product-info {
+      padding: 1rem;
+    }
+    .veg-icon {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid green;
+      border-radius: 2px;
+      position: relative;
+      margin-right: 0.3rem;
+    }
+    .veg-icon::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: green;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+    }
+    .product-name {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 0.5rem 0;
+    }
+    .product-desc {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.8rem;
+    }
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .price {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #fa5a2a;
+    }
+    .add-btn {
+      background: #fa5a2a;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .add-btn:hover {
+      background: #dd4413;
+    }
+    /* Footer */
+    .footer {
+      background: #2b2b2b;
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-top {
+        padding: 0.7rem 1rem;
+      }
+      .logo {
+        font-size: 1.3rem;
+      }
+      .user-email {
+        display: none;
+      }
+      .nav-bar {
+        padding: 0.6rem 1rem;
+      }
+      .nav-links {
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+      .banner h1 {
+        font-size: 1.5rem;
+      }
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+    }
+    @media (max-width: 480px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+      .categories {
+        gap: 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-top">
+      <div class="logo">🍕 Pizza House</div>
+      <div class="location">
+        📍 <span>Sonipat, Haryana</span>
+      </div>
+      <div class="user-section">
+        <span class="user-email" id="userEmail"></span>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </div>
+    <nav class="nav-bar">
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#offers">Offers</a></li>
+        <li><a href="#track">Track Order</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Banner -->
+  <section class="banner">
+    <h1>Delicious Pizzas Delivered Hot!</h1>
+    <p>Order now and get 20% off on your first order</p>
+  </section>
+
+  <!-- Menu Categories -->
+  <section class="menu-categories">
+    <div class="categories">
+      <div class="category-card">
+        <div class="category-icon">🍕</div>
+        <div class="category-name">Pizzas</div>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">🍝</div>
+        <div class="category-name">Pastas</div>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">🥖</div>
+        <div class="category-name">Sides</div>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">🥤</div>
+        <div class="category-name">Beverages</div>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">🍰</div>
+        <div class="category-name">Desserts</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products-section">
+    <h2 class="section-title">Our Bestsellers</h2>
+    <div class="product-grid">
+      <!-- Product 1 - Margherita -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&h=300&fit=crop" alt="Margherita Pizza" class="product-image">
+        <div class="product-info">
+          <div><span class="veg-icon"></span></div>
+          <div class="product-name">Margherita</div>
+          <div class="product-desc">Classic delight with 100% real mozzarella cheese</div>
+          <div class="product-footer">
+            <span class="price">₹199</span>
+            <button class="add-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 - Peppy Paneer -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400&h=300&fit=crop" alt="Peppy Paneer Pizza" class="product-image">
+        <div class="product-info">
+          <div><span class="veg-icon"></span></div>
+          <div class="product-name">Peppy Paneer</div>
+          <div class="product-desc">Paneer, crisp capsicum & red paprika</div>
+          <div class="product-footer">
+            <span class="price">₹249</span>
+            <button class="add-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 - Farmhouse -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop" alt="Farmhouse Pizza" class="product-image">
+        <div class="product-info">
+          <div><span class="veg-icon"></span></div>
+          <div class="product-name">Farmhouse</div>
+          <div class="product-desc">Onion, capsicum, mushroom & fresh tomato</div>
+          <div class="product-footer">
+            <span class="price">₹299</span>
+            <button class="add-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4 - Veggie Paradise -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=400&h=300&fit=crop" alt="Veggie Paradise Pizza" class="product-image">
+        <div class="product-info">
+          <div><span class="veg-icon"></span></div>
+          <div class="product-name">Veggie Paradise</div>
+          <div class="product-desc">Baby corn, black olives, capsicum & red paprika</div>
+          <div class="product-footer">
+            <span class="price">₹349</span>
+            <button class="add-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 5 - Mexican Green Wave -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1564128442383-9201fcc740eb?w=400&h=300&fit=crop" alt="Mexican Green Wave Pizza" class="product-image">
+        <div class="product-info">
+          <div><span class="veg-icon"></span></div>
+          <div class="product-name">Mexican Green Wave</div>
+          <div class="product-desc">Onion, capsicum, tomato & jalapeno with Mexican herbs</div>
+          <div class="product-footer">
+            <span class="price">₹329</span>
+            <button class="add-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 6 - Deluxe Veggie -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop" alt="Deluxe Veggie Pizza" class="product-image">
+        <div class="product-info">
+          <div><span class="veg-icon"></span></div>
+          <div class="product-name">Deluxe Veggie</div>
+          <div class="product-desc">Onion, capsicum, mushroom, golden corn & paneer</div>
+          <div class="product-footer">
+            <span class="price">₹379</span>
+            <button class="add-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Pizza House. All rights reserved.</p>
+    <p>Delivering happiness, one pizza at a time! 🍕</p>
+  </footer>
+
+  <script>
+    // Check if user is logged in
+    window.onload = function() {
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      const userEmail = localStorage.getItem('userEmail');
+      
+      if (!isLoggedIn) {
+        // Redirect to login if not logged in
+        window.location.href = 'login.html';
+      } else {
+        // Display user email
+        document.getElementById('userEmail').textContent = userEmail;
+      }
+    };
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userEmail');
+      window.location.href = 'login.html';
+    }
+
+    // Add to cart functionality
+    document.querySelectorAll('.add-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const productCard = this.closest('.product-card');
+        const productName = productCard.querySelector('.product-name').textContent;
+        const productPrice = productCard.querySelector('.price').textContent;
+        
+        alert(`${productName} (${productPrice}) added to cart!`);
+      });
+    });
+  </script>
+</body>
+</html>
